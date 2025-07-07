@@ -37,7 +37,7 @@ const Empregado = () => {
   };
 
   const updateEmpregado = () => {
-    EmpregadoDataService.update(currentEmpregado.id, currentEmpregado)
+    EmpregadoDataService.update(currentEmpregado._id, currentEmpregado)
       .then(response => {
         setMessage("Empregado editado com sucesso!");
       })
@@ -47,7 +47,7 @@ const Empregado = () => {
   };
 
   const deleteEmpregado = () => {
-    EmpregadoDataService.delete(currentEmpregado.id)
+    EmpregadoDataService.delete(currentEmpregado._id)
       .then(response => {
         navigate("/empregados");
       })
@@ -116,13 +116,13 @@ const Empregado = () => {
             </div>
           </form>
 
-          <button className="button" onClick={deleteEmpregado}>
+          <button className="btn btn-danger" onClick={deleteEmpregado}>
             Deletar
           </button>
 
           <button
             type="submit"
-            className="button"
+            className="btn btn-success"
             onClick={updateEmpregado}
           >
             Atualizar

@@ -29,9 +29,9 @@ const AddEmpregado = () => {
 
   EmpregadoDataService.create(data)
     .then(response => {
-      const id = response.data.id;
+      const id = response.data._id;
       setEmpregado({
-        id: response.data.id,
+        id: response.data._id,
         nome: response.data.nome,
         endereco: response.data.endereco,
         telefone: response.data.telefone,

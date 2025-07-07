@@ -30,6 +30,6 @@ const testeSchema = new mongoose.Schema({
   }
 });
 
-const Teste = mongoose.model('Teste', testeSchema);
+const Teste = mongoose.model('Teste', testeSchema, 'teste');
 
 module.exports = Teste;

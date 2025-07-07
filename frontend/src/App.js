@@ -13,6 +13,8 @@ import ModelosList from './components/ModelosList';
 import AddEmpregado from "./components/AddEmpregado";
 import Empregado from "./components/Empregado";
 import EmpregadosList from "./components/EmpregadosList";
+import Tecnico from "./components/Tecnico";
+import Controlador from "./components/Controlador";
 
 import AddAviao from "./components/AddAviao";
 import Aviao from "./components/Aviao";
@@ -39,6 +41,8 @@ function App() {
           <Route path="/empregados" element={<EmpregadosList/>} />
           <Route path="/addEmpregado" element={<AddEmpregado/>} />
           <Route path="/empregados/:id" element={<Empregado/>} />
+          <Route path="/tecnicos/:id" element={<Tecnico/>} />
+          <Route path="/controladores/:id" element={<Controlador/>} />
 
           <Route path="/avioes" element={<AvioesList/>} />
           <Route path="/addAviao" element={<AddAviao/>} />

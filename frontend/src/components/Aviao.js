@@ -34,7 +34,7 @@ const Aviao = () => {
   };
 
   const updateAviao = () => {
-    AviaoDataService.update(currentAviao.id, currentAviao)
+    AviaoDataService.update(currentAviao._id, currentAviao)
       .then(response => {
         console.log(response.data);
         setMessage("Avião atualizado com sucesso!");
@@ -45,7 +45,7 @@ const Aviao = () => {
   };
 
   const deleteAviao = () => {
-    AviaoDataService.delete(currentAviao.id)
+    AviaoDataService.delete(currentAviao._id)
       .then(response => {
         console.log(response.data);
         navigate("/avioes");
@@ -64,7 +64,7 @@ const Aviao = () => {
             <div className="form-group">
               <label htmlFor="modeloId">Id do Modelo</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="modeloId"
                 required

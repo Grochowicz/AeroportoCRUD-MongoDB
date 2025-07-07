@@ -4,8 +4,8 @@ import PeritoEmDataService from "../services/PeritoEmService";
 const AddPeritoEm = () => {
   const initialState = {
     id: null,
-    tecnico_perito: "",
-    modeloId: ""
+    tecnico_peritoId: "",
+    modelo_especialidadeId: ""
   };
 
   const [peritoEm, setPeritoEm] = useState(initialState);
@@ -20,9 +20,9 @@ const AddPeritoEm = () => {
     PeritoEmDataService.create(peritoEm)
       .then(response => {
         setPeritoEm({
-          id: response.data.id,
-          tecnico_perito: response.data.tecnico_perito,
-          modeloId: response.data.modeloId
+          id: response.data._id,
+          tecnico_peritoId: response.data.tecnico_peritoId,
+          modelo_especialidadeId: response.data.modelo_especialidadeId
         });
         setSubmitted(true);
       })
@@ -46,28 +46,28 @@ const AddPeritoEm = () => {
       ) : (
         <div>
           <div className="form-group">
-            <label htmlFor="tecnico_perito">Técnico</label>
+            <label htmlFor="tecnico_peritoId">ID do Técnico</label>
             <input
               type="text"
               className="form-control"
-              id="tecnico_perito"
+              id="tecnico_peritoId"
               required
-              value={peritoEm.tecnico_perito}
+              value={peritoEm.tecnico_peritoId}
               onChange={handleInputChange}
-              name="tecnico_perito"
+              name="tecnico_peritoId"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="modeloId">Modelo</label>
+            <label htmlFor="modelo_especialidadeId">ID do Modelo</label>
             <input
               type="text"
               className="form-control"
-              id="modeloId"
+              id="modelo_especialidadeId"
               required
-              value={peritoEm.modeloId}
+              value={peritoEm.modelo_especialidadeId}
               onChange={handleInputChange}
-              name="modeloId"
+              name="modelo_especialidadeId"
             />
           </div>
 

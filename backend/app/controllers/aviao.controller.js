@@ -19,7 +19,14 @@ exports.create = async (req, res) => {
 // Select todos
 exports.findAll = async (req, res) => {
   try {
-    const filtro = req.query.modeloId ? { modeloId: req.query.modeloId } : {};
+    let filtro = {};
+    
+    if (req.query.modeloId) {
+  
+      const mongoose = require('mongoose');
+      filtro = { modeloId: new mongoose.Types.ObjectId(req.query.modeloId) };
+    }
+    
     const data = await Aviao.find(filtro);
     res.send(data);
   } catch (err) {

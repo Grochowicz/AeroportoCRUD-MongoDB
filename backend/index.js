@@ -38,6 +38,6 @@ app.listen(PORT, () => {
   console.log(`Rodando na porta ${PORT}.`);
 });
 
-const connectDB = require("./app/mongo.js");
+const connectDB = require("./mongo.js");
 connectDB();
 

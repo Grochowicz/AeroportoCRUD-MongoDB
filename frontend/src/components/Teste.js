@@ -12,7 +12,8 @@ const Teste = () => {
     data: "",
     duracao_horas: "",
     resultado: "",
-    aviaoId: ""
+    aviaoId: "",
+    supervisor_tecnicoId: ""
   };
   const [currentTeste, setCurrentTeste] = useState(initialTesteState);
   const [message, setMessage] = useState("");
@@ -37,7 +38,7 @@ const Teste = () => {
   };
 
   const updateTeste = () => {
-    TesteDataService.update(currentTeste.id, currentTeste)
+    TesteDataService.update(currentTeste._id, currentTeste)
       .then(response => {
         setMessage("Teste atualizado com sucesso!");
       })
@@ -47,7 +48,7 @@ const Teste = () => {
   };
 
   const deleteTeste = () => {
-    TesteDataService.delete(currentTeste.id)
+    TesteDataService.delete(currentTeste._id)
       .then(response => {
         navigate("/testes");
       })
@@ -113,12 +114,24 @@ const Teste = () => {
             <div className="form-group">
               <label htmlFor="aviaoId">ID do Avião</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="aviaoId"
                 value={currentTeste.aviaoId}
                 onChange={handleInputChange}
                 name="aviaoId"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="supervisor_tecnicoId">ID do Técnico Supervisor</label>
+              <input
+                type="text"
+                className="form-control"
+                id="supervisor_tecnicoId"
+                value={currentTeste.supervisor_tecnicoId}
+                onChange={handleInputChange}
+                name="supervisor_tecnicoId"
               />
             </div>
           </form>

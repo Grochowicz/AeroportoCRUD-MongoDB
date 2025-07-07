@@ -13,6 +13,6 @@ const tecnicoSchema = new mongoose.Schema({
   salario_base: Number
 });
 
-const Tecnico = mongoose.model('Tecnico', tecnicoSchema);
+const Tecnico = mongoose.model('Tecnico', tecnicoSchema, 'tecnico');
 
 module.exports = Tecnico;

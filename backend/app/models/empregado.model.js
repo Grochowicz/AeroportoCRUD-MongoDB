@@ -13,7 +13,7 @@ const empregadoSchema = new mongoose.Schema({
   salario: Number
 });
 
-const Empregado = mongoose.model('Empregado', empregadoSchema);
+const Empregado = mongoose.model('Empregado', empregadoSchema, 'empregado');
 
 module.exports = Empregado;
 

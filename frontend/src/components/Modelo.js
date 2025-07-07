@@ -37,7 +37,7 @@ const Modelo = props => {
   };
 
   const updateModelo = () => {
-    ModeloDataService.update(currentModelo.id, currentModelo)
+    ModeloDataService.update(currentModelo._id, currentModelo)
       .then(response => {
         console.log(response.data);
         setMessage("Modelo editado com sucesso!");
@@ -48,7 +48,7 @@ const Modelo = props => {
   };
 
   const deleteModelo= () => {
-    ModeloDataService.delete(currentModelo.id)
+    ModeloDataService.delete(currentModelo._id)
       .then(response => {
         console.log(response.data);
         navigate("/modelos");
@@ -104,13 +104,13 @@ const Modelo = props => {
               </div>
             </form>
 
-          <button className="button" onClick={deleteModelo}>
+          <button className="btn btn-danger" onClick={deleteModelo}>
             Deletar
           </button>
 
           <button
             type="submit"
-            className="button"
+            className="btn btn-success"
             onClick={updateModelo}
           >
             Atualizar

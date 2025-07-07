@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TutorialDataService from "../services/ModeloService";
+import ModeloDataService from "../services/ModeloService";
 import { Link } from "react-router-dom";
 
 const ModelosList = () => {
@@ -18,7 +18,7 @@ const ModelosList = () => {
   };
 
   const retrieveModelos= () => {
-    TutorialDataService.getAll()
+    ModeloDataService.getAll()
       .then(response => {
         setModelos(response.data);
         console.log(response.data);
@@ -40,7 +40,7 @@ const ModelosList = () => {
   };
 
   const removeAllModelos = () => {
-    TutorialDataService.deleteAll()
+    ModeloDataService.deleteAll()
       .then(response => {
         console.log(response.data);
         refreshList();
@@ -51,7 +51,7 @@ const ModelosList = () => {
   };
 
   const findByTitle = () => {
-    TutorialDataService.findByTitle(searchTitle)
+    ModeloDataService.findByTitle(searchTitle)
       .then(response => {
         setModelos(response.data);
         console.log(response.data);
@@ -116,7 +116,7 @@ const ModelosList = () => {
               <label>
                 <strong>ID:</strong>
               </label>{" "}
-              {currentModelo.id}
+              {currentModelo._id}
             </div>
             <div>
               <label>
@@ -138,7 +138,7 @@ const ModelosList = () => {
             </div>
 
             <Link
-              to={"/modelos/" + currentModelo.id}
+              to={"/modelos/" + currentModelo._id}
             >
               Editar
             </Link>

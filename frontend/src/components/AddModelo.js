@@ -26,7 +26,7 @@ const AddModelo = () => {
     TutorialDataService.create(data)
       .then(response => {
         setModelo({
-          id: response.data.id,
+          id: response.data._id,
           nome: response.data.nome,
           capacidade: response.data.capacidade, 
           peso: response.data.peso
@@ -49,9 +49,9 @@ const AddModelo = () => {
     <div className="submit-form container mt-3">
       {submitted ? (
         <div>
-          <h4>You submitted successfully!</h4>
+          <h4>Modelo adicionado com sucesso!</h4>
           <button className="btn btn-success" onClick={newModelo}>
-            Add
+            Adicionar
           </button>
         </div>
       ) : (
@@ -72,7 +72,7 @@ const AddModelo = () => {
           <div className="form-group">
             <label htmlFor="capacidade">Capacidade</label>
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="capacidade"
               required
@@ -85,7 +85,8 @@ const AddModelo = () => {
           <div className="form-group">
             <label htmlFor="peso">Peso</label>
             <input
-              type="text"
+              type="number"
+              step="0.01"
               className="form-control"
               id="peso"
               required

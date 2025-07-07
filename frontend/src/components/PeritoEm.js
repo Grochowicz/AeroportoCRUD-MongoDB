@@ -8,8 +8,8 @@ const PeritoEm = () => {
 
   const initialState = {
     id: null,
-    tecnico_perito: "",
-    modeloId: ""
+    tecnico_peritoId: "",
+    modelo_especialidadeId: ""
   };
 
   const [peritoEm, setPeritoEm] = useState(initialState);
@@ -33,7 +33,7 @@ const PeritoEm = () => {
   };
 
   const updatePeritoEm = () => {
-    PeritoEmDataService.update(peritoEm.id, peritoEm)
+    PeritoEmDataService.update(peritoEm._id, peritoEm)
       .then(response => {
         setMessage("Relacionamento atualizado com sucesso!");
       })
@@ -41,7 +41,7 @@ const PeritoEm = () => {
   };
 
   const deletePeritoEm = () => {
-    PeritoEmDataService.delete(peritoEm.id)
+    PeritoEmDataService.delete(peritoEm._id)
       .then(() => navigate("/perito_em"))
       .catch(e => console.log(e));
   };
@@ -53,26 +53,26 @@ const PeritoEm = () => {
           <h4>Perito em</h4>
           <form>
             <div className="form-group">
-              <label htmlFor="tecnico_perito">Técnico</label>
+              <label htmlFor="tecnico_peritoId">ID do Técnico</label>
               <input
                 type="text"
                 className="form-control"
-                id="tecnico_perito"
-                value={peritoEm.tecnico_perito}
+                id="tecnico_peritoId"
+                value={peritoEm.tecnico_peritoId}
                 onChange={handleInputChange}
-                name="tecnico_perito"
+                name="tecnico_peritoId"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="modeloId">Modelo</label>
+              <label htmlFor="modelo_especialidadeId">ID do Modelo</label>
               <input
                 type="text"
                 className="form-control"
-                id="modeloId"
-                value={peritoEm.modeloId}
+                id="modelo_especialidadeId"
+                value={peritoEm.modelo_especialidadeId}
                 onChange={handleInputChange}
-                name="modeloId"
+                name="modelo_especialidadeId"
               />
             </div>
           </form>

@@ -13,7 +13,7 @@ const controladorSchema = new mongoose.Schema({
   ultimo_exame: Date
 });
 
-const Controlador = mongoose.model('Controlador', controladorSchema);
+const Controlador = mongoose.model('Controlador', controladorSchema, 'controlador');
 
 module.exports = Controlador;
 

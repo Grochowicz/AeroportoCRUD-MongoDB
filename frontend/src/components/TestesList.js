@@ -7,6 +7,7 @@ const TestesList = () => {
   const [currentTeste, setCurrentTeste] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchNumAnac, setSearchNumAnac] = useState("");
+  const [tecnicoNomes, setTecnicoNomes] = useState({});
 
   useEffect(() => {
     retrieveTestes();
@@ -17,14 +18,14 @@ const TestesList = () => {
   setSearchNumAnac(searchValue);
   };
 
-  const retrieveTestes = () => {
-    TesteDataService.getAll()
-      .then(response => {
-        setTestes(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const retrieveTestes = async () => {
+    try {
+      const { testes, tecnicoNomes } = await TesteDataService.getAllWithTecnicoNomes();
+      setTestes(testes);
+      setTecnicoNomes(tecnicoNomes);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const refreshList = () => {
@@ -48,16 +49,16 @@ const TestesList = () => {
       });
   };
 
-  const findByNumAnac = () => {
-  TesteDataService.findByNumAnac(searchNumAnac)
-    .then(response => {
-      setTestes(response.data);
+  const findByNumAnac = async () => {
+    try {
+      const { testes, tecnicoNomes } = await TesteDataService.findByNumAnacWithNomes(searchNumAnac);
+      setTestes(testes);
+      setTecnicoNomes(tecnicoNomes);
       setCurrentTeste(null);
       setCurrentIndex(-1);
-    })
-    .catch(e => {
+    } catch (e) {
       console.log(e);
-    });
+    }
   };
 
 
@@ -111,14 +112,15 @@ const TestesList = () => {
         {currentTeste ? (
           <div>
             <h4>Teste</h4>
-            <div><strong>ID:</strong> {currentTeste.id}</div>
+            <div><strong>ID:</strong> {currentTeste._id}</div>
             <div><strong>Número ANAC:</strong> {currentTeste.num_anac}</div>
             <div><strong>Data:</strong> {currentTeste.data}</div>
             <div><strong>Duração (horas):</strong> {currentTeste.duracao_horas}</div>
             <div><strong>Resultado:</strong> {currentTeste.resultado}</div>
             <div><strong>ID Avião:</strong> {currentTeste.aviaoId}</div>
+            <div><strong>Supervisor Técnico:</strong> {tecnicoNomes[currentTeste.supervisor_tecnicoId] || "Carregando..."}</div>
 
-            <Link to={"/testes/" + currentTeste.id}>Editar</Link>
+            <Link to={"/testes/" + currentTeste._id}>Editar</Link>
           </div>
         ) : (
           <div>

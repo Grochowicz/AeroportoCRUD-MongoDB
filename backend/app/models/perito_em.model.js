@@ -21,9 +21,9 @@ const peritoEmSchema = new mongoose.Schema({
   timestamps: false
 });
 
-// Compound index to ensure uniqueness of the combination
+
 peritoEmSchema.index({ tecnico_peritoId: 1, modelo_especialidadeId: 1 }, { unique: true });
 
-const PeritoEm = mongoose.model('PeritoEm', peritoEmSchema);
+const PeritoEm = mongoose.model('PeritoEm', peritoEmSchema, 'perito_em');
 
 module.exports = PeritoEm;

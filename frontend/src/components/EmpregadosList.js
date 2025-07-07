@@ -8,6 +8,8 @@ const EmpregadosList = () => {
   const [currentEmpregado, setCurrentEmpregado] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchNome, setSearchNome] = useState("");
+  const [empregadoTypes, setEmpregadoTypes] = useState({});
+  const [empregadoDetails, setEmpregadoDetails] = useState({});
 
   useEffect(() => {
     retrieveEmpregados();
@@ -18,15 +20,16 @@ const EmpregadosList = () => {
     setSearchNome(searchNome);
   };
 
-  const retrieveEmpregados = () => {
-    EmpregadoDataService.getAll()
-      .then(response => {
-        setEmpregados(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const retrieveEmpregados = async () => {
+    try {
+      const { empregados, types, details } = await EmpregadoDataService.getAllWithTypes();
+      setEmpregados(empregados);
+      setEmpregadoTypes(types);
+      setEmpregadoDetails(details);
+      console.log(empregados);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const refreshList = () => {
@@ -51,15 +54,16 @@ const EmpregadosList = () => {
       });
   };
 
-  const findByNome = () => {
-    EmpregadoDataService.findByNome(searchNome)
-      .then(response => {
-        setEmpregados(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const findByNome = async () => {
+    try {
+      const { empregados, types, details } = await EmpregadoDataService.findByNomeWithTypes(searchNome);
+      setEmpregados(empregados);
+      setEmpregadoTypes(types);
+      setEmpregadoDetails(details);
+      console.log(empregados);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -97,7 +101,12 @@ const EmpregadosList = () => {
                 onClick={() => setActiveEmpregado(empregado, index)}
                 key={index}
               >
-                {empregado.nome}
+                <div className="d-flex justify-content-between align-items-center">
+                  <span>{empregado.nome}</span>
+                  <span>
+                    {empregadoTypes[empregado._id] || "Carregando..."}
+                  </span>
+                </div>
               </li>
             ))}
         </ul>
@@ -117,7 +126,7 @@ const EmpregadosList = () => {
               <label>
                 <strong>ID:</strong>
               </label>{" "}
-              {currentEmpregado.id}
+              {currentEmpregado._id}
             </div>
             <div>
               <label>
@@ -143,10 +152,36 @@ const EmpregadosList = () => {
               </label>{" "}
               R$ {parseFloat(currentEmpregado.salario).toFixed(2)}
             </div>
+            {empregadoTypes[currentEmpregado._id] === "Técnico" && empregadoDetails[currentEmpregado._id] && (
+              <div>
+                <label>
+                  <strong>Salário Base:</strong>
+                </label>{" "}
+                R$ {parseFloat(empregadoDetails[currentEmpregado._id].salario_base).toFixed(2)}
+              </div>
+            )}
+            {empregadoTypes[currentEmpregado._id] === "Controlador" && empregadoDetails[currentEmpregado._id] && (
+              <div>
+                <label>
+                  <strong>Último Exame:</strong>
+                </label>{" "}
+                {new Date(empregadoDetails[currentEmpregado._id].ultimo_exame).toLocaleDateString('pt-BR')}
+              </div>
+            )}
 
-            <Link to={"/empregados/" + currentEmpregado.id}>
-              Editar
-            </Link>
+            {empregadoTypes[currentEmpregado._id] === "Técnico" ? (
+              <Link to={"/tecnicos/" + currentEmpregado._id}>
+                Editar
+              </Link>
+            ) : empregadoTypes[currentEmpregado._id] === "Controlador" ? (
+              <Link to={"/controladores/" + currentEmpregado._id}>
+                Editar
+              </Link>
+            ) : (
+              <Link to={"/empregados/" + currentEmpregado._id}>
+                Editar
+              </Link>
+            )}
           </div>
         ) : (
           <div>

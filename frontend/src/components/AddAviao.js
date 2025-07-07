@@ -22,7 +22,7 @@ const AddAviao = () => {
     AviaoDataService.create(data)
       .then(response => {
         setAviao({
-          id: response.data.id,
+          id: response.data._id,
           modeloId: response.data.modeloId
         });
         setSubmitted(true);
@@ -42,7 +42,7 @@ const AddAviao = () => {
     <div className="submit-form container mt-3">
       {submitted ? (
         <div>
-          <h4>Você adicionou o avião com sucesso!</h4>
+          <h4>Avião adicionado com sucesso!</h4>
           <button className="btn btn-success" onClick={newAviao}>
             Adicionar outro
           </button>
@@ -52,7 +52,7 @@ const AddAviao = () => {
           <div className="form-group">
             <label htmlFor="modeloId">Modelo ID</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               id="modeloId"
               required

@@ -8,7 +8,8 @@ const AddTeste = () => {
     data: "",
     duracao_horas: "",
     resultado: "",
-    aviaoId: ""
+    aviaoId: "",
+    supervisor_tecnicoId: ""
   };
   const [teste, setTeste] = useState(initialTesteState);
   const [submitted, setSubmitted] = useState(false);
@@ -39,7 +40,7 @@ const AddTeste = () => {
     <div className="submit-form container mt-3">
       {submitted ? (
         <div>
-          <h4>Teste enviado com sucesso!</h4>
+          <h4>Teste adicionado com sucesso!</h4>
           <button className="btn btn-success" onClick={newTeste}>
             Adicionar
           </button>
@@ -101,13 +102,26 @@ const AddTeste = () => {
           <div className="form-group">
             <label htmlFor="aviaoId">ID do Avião</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               id="aviaoId"
               required
               value={teste.aviaoId}
               onChange={handleInputChange}
               name="aviaoId"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="supervisor_tecnicoId">ID do Técnico Supervisor</label>
+            <input
+              type="text"
+              className="form-control"
+              id="supervisor_tecnicoId"
+              required
+              value={teste.supervisor_tecnicoId}
+              onChange={handleInputChange}
+              name="supervisor_tecnicoId"
             />
           </div>
 

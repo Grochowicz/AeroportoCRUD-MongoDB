@@ -27,7 +27,16 @@ exports.create = async (req, res) => {
 // Select todos
 exports.findAll = async (req, res) => {
   try {
-    const data = await Tecnico.find();
+    const empregadoId = req.query.empregadoId;
+    let condition = {};
+    
+    if (empregadoId) {
+  
+      const mongoose = require('mongoose');
+      condition = { empregadoId: new mongoose.Types.ObjectId(empregadoId) };
+    }
+    
+    const data = await Tecnico.find(condition);
     res.send(data);
   } catch (err) {
     res.status(500).send({

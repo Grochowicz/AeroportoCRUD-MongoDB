@@ -1,4 +1,6 @@
 const Empregado = require("../models/empregado.model");
+const Tecnico = require("../models/tecnico.model");
+const Controlador = require("../models/controlador.model");
 
 // Cria empregado
 exports.create = async (req, res) => {
@@ -65,11 +67,21 @@ exports.update = async (req, res) => {
 // Deleta por id
 exports.delete = async (req, res) => {
   try {
-    const data = await Empregado.findByIdAndDelete(req.params.id);
+    const empregadoId = req.params.id;
+    
+
+    await Tecnico.deleteMany({ empregadoId: empregadoId });
+    
+
+    await Controlador.deleteMany({ empregadoId: empregadoId });
+    
+
+    const data = await Empregado.findByIdAndDelete(empregadoId);
     if (!data) {
-      return res.status(404).send({ message: `Não foi possível deletar empregado com id=${req.params.id}.` });
+      return res.status(404).send({ message: `Não foi possível deletar empregado com id=${empregadoId}.` });
     }
-    res.send({ message: "Empregado deletado com sucesso!" });
+    
+    res.send({ message: "Empregado e registros relacionados deletados com sucesso!" });
   } catch (err) {
     res.status(500).send({ message: "Erro deletando empregado com id=" + req.params.id });
   }
@@ -78,8 +90,15 @@ exports.delete = async (req, res) => {
 // Deleta todos
 exports.deleteAll = async (req, res) => {
   try {
+
+    await Tecnico.deleteMany({});
+    
+
+    await Controlador.deleteMany({});
+    
+
     const result = await Empregado.deleteMany({});
-    res.send({ message: `${result.deletedCount} empregados deletados com sucesso!` });
+    res.send({ message: `${result.deletedCount} empregados e registros relacionados deletados com sucesso!` });
   } catch (err) {
     res.status(500).send({ message: err.message || "Erro removendo todos os empregados." });
   }

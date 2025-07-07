@@ -11,6 +11,6 @@ const modeloSchema = new mongoose.Schema({
   peso: Number
 });
 
-const Modelo = mongoose.model('Modelo', modeloSchema);
+const Modelo = mongoose.model('Modelo', modeloSchema, 'modelo');
 
 module.exports = Modelo;

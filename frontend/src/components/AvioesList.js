@@ -7,6 +7,7 @@ const AvioesList = () => {
   const [currentAviao, setCurrentAviao] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchId, setSearchId] = useState("");
+  const [modeloNomes, setModeloNomes] = useState({});
 
   useEffect(() => {
     retrieveAvioes();
@@ -17,15 +18,15 @@ const AvioesList = () => {
     setSearchId(searchId);
   };
 
-  const retrieveAvioes = () => {
-    AviaoDataService.getAll()
-      .then(response => {
-        setAvioes(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const retrieveAvioes = async () => {
+    try {
+      const { avioes, modeloNomes } = await AviaoDataService.getAllWithModeloNomes();
+      setAvioes(avioes);
+      setModeloNomes(modeloNomes);
+      console.log(avioes);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const refreshList = () => {
@@ -50,15 +51,15 @@ const AvioesList = () => {
       });
   };
 
-  const findById = () => {
-    AviaoDataService.findByModelo(searchId)
-      .then(response => {
-        setAvioes(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const findById = async () => {
+    try {
+      const { avioes, modeloNomes } = await AviaoDataService.findByModeloWithNomes(searchId);
+      setAvioes(avioes);
+      setModeloNomes(modeloNomes);
+      console.log(avioes);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -96,7 +97,7 @@ const AvioesList = () => {
                 onClick={() => setActiveAviao(aviao, index)}
                 key={index}
               >
-                Avião #{aviao.id} (Modelo {aviao.modeloId})
+                Avião #{aviao._id} (Modelo {modeloNomes[aviao.modeloId] || "Carregando..."})
               </li>
             ))}
         </ul>
@@ -116,16 +117,16 @@ const AvioesList = () => {
               <label>
                 <strong>ID:</strong>
               </label>{" "}
-              {currentAviao.id}
+              {currentAviao._id}
             </div>
             <div>
               <label>
-                <strong>Modelo ID:</strong>
+                <strong>Modelo:</strong>
               </label>{" "}
-              {currentAviao.modeloId}
+              {modeloNomes[currentAviao.modeloId] || "Carregando..."}
             </div>
 
-            <Link to={"/avioes/" + currentAviao.id}>
+            <Link to={"/avioes/" + currentAviao._id}>
               Editar
             </Link>
           </div>

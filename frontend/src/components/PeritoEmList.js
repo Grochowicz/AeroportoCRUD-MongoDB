@@ -6,17 +6,22 @@ const PeritoEmList = () => {
   const [relacoes, setRelacoes] = useState([]);
   const [current, setCurrent] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
+  const [tecnicos, setTecnicos] = useState({});
+  const [modelos, setModelos] = useState({});
 
   useEffect(() => {
     retrieveRelacoes();
   }, []);
 
-  const retrieveRelacoes = () => {
-    PeritoEmDataService.getAll()
-      .then(response => {
-        setRelacoes(response.data);
-      })
-      .catch(e => console.log(e));
+  const retrieveRelacoes = async () => {
+    try {
+      const { relacoes, tecnicos, modelos } = await PeritoEmDataService.getAllWithNomes();
+      setRelacoes(relacoes);
+      setTecnicos(tecnicos);
+      setModelos(modelos);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const refreshList = () => {
@@ -48,7 +53,7 @@ const PeritoEmList = () => {
                 onClick={() => setActive(item, index)}
                 key={index}
               >
-                Técnico: {item.tecnico_perito} | Modelo: {item.modeloId}
+                Técnico: {tecnicos[item.tecnico_peritoId] || "Carregando..."} | Modelo: {modelos[item.modelo_especialidadeId] || "Carregando..."}
               </li>
             ))}
         </ul>
@@ -65,12 +70,12 @@ const PeritoEmList = () => {
           <div>
             <h4>Detalhes</h4>
             <div>
-              <strong>Técnico:</strong> {current.tecnico_perito}
+              <strong>Técnico:</strong> {tecnicos[current.tecnico_peritoId] || "Carregando..."}
             </div>
             <div>
-              <strong>Modelo:</strong> {current.modeloId}
+              <strong>Modelo:</strong> {modelos[current.modelo_especialidadeId] || "Carregando..."}
             </div>
-            <Link to={"/perito_em/" + current.id}>Editar</Link>
+            <Link to={"/perito_em/" + current._id}>Editar</Link>
           </div>
         ) : (
           <p>Clique em um(a) perito_em</p>
