@@ -81,14 +81,10 @@ class EmpregadoDataService {
       
       if (type === "Técnico") {
         const tecnicoResponse = await this.getTecnicoDetails(empregadoId);
-        if (tecnicoResponse.data && tecnicoResponse.data.length > 0) {
-          details = tecnicoResponse.data[0];
-        }
+        details = tecnicoResponse.data[0];
       } else if (type === "Controlador") {
         const controladorResponse = await this.getControladorDetails(empregadoId);
-        if (controladorResponse.data && controladorResponse.data.length > 0) {
-          details = controladorResponse.data[0];
-        }
+        details = controladorResponse.data[0];
       }
       
       return { type, details };

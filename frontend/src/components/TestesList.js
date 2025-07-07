@@ -118,7 +118,7 @@ const TestesList = () => {
             <div><strong>Duração (horas):</strong> {currentTeste.duracao_horas}</div>
             <div><strong>Resultado:</strong> {currentTeste.resultado}</div>
             <div><strong>ID Avião:</strong> {currentTeste.aviaoId}</div>
-            <div><strong>Supervisor Técnico:</strong> {tecnicoNomes[currentTeste.supervisor_tecnicoId] || "Carregando..."}</div>
+            <div><strong>Supervisor Técnico:</strong> {tecnicoNomes[currentTeste.supervisor_tecnicoId]}</div>
 
             <Link to={"/testes/" + currentTeste._id}>Editar</Link>
           </div>
